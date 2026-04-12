@@ -6,7 +6,7 @@ export interface IProduct extends Document {
   price: number;
   quantity: number;
   category: "vegetables" | "fruits" | "grains" | "spices";
-  unit?: string;          // ✨ Added
+  unit?: string;         
   pricePerUnit?: number;
   image?: string;
   offerText?: string;

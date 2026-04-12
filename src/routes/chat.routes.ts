@@ -3,7 +3,7 @@ import { protect } from "../middleware/auth.middleware";
 
 const router = Router();
 
-// 🌿 KisanX AI Chat Route — Powered by Google Gemini (Free)
+// KisanX AI Chat Route — Powered by Google Gemini (Free)
 router.post("/", protect, async (req: any, res: Response) => {
   const { messages } = req.body;
 

@@ -42,7 +42,7 @@ const userSchema = new Schema<IUser>(
 
 /* ================= MIDDLEWARES ================= */
 
-// ✅ CASCADE DELETE: Farmer ke saare products delete karo
+// CASCADE DELETE
 userSchema.pre("findOneAndDelete", async function (this: any) {
   try {
     const user = await this.model.findOne(this.getQuery());
@@ -55,7 +55,7 @@ userSchema.pre("findOneAndDelete", async function (this: any) {
   }
 });
 
-// ✅ PASSWORD HASH: next() hataya, sirf async use karo
+// PASSWORD HASH
 userSchema.pre("save", async function (this: any) {
   if (!this.isModified("password")) return;
   const salt = await bcrypt.genSalt(10);

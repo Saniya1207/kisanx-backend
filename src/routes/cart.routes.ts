@@ -6,7 +6,7 @@ import { protect, customerOnly } from "../middleware/auth.middleware";
 const router = Router();
 
 /**
- * ✨ ADD TO CART / INITIAL ADD
+ * ADD TO CART / INITIAL ADD
  * POST /cart
  */
 router.post("/", protect, customerOnly, async (req, res) => {
@@ -53,7 +53,7 @@ router.post("/", protect, customerOnly, async (req, res) => {
 });
 
 /**
- * ✨ UPDATE QUANTITY (Used by Stepper +/- Buttons)
+ * UPDATE QUANTITY (Used by Stepper +/- Buttons)
  * PUT /cart/update
  */
 router.put("/update", protect, customerOnly, async (req, res) => {
@@ -89,7 +89,7 @@ router.put("/update", protect, customerOnly, async (req, res) => {
 });
 
 /**
- * ✨ VIEW CART
+ * VIEW CART
  * GET /cart
  */
 router.get("/", protect, customerOnly, async (req, res) => {
@@ -108,7 +108,7 @@ router.get("/", protect, customerOnly, async (req, res) => {
 });
 
 /**
- * ✨ REMOVE SINGLE ITEM
+ * REMOVE SINGLE ITEM
  * DELETE /cart/:productId
  */
 router.delete("/:productId", protect, customerOnly, async (req, res) => {

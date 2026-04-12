@@ -2,7 +2,7 @@ import { Router } from "express";
 
 const router = Router();
 
-// 🍎 100+ Products Database with Base Mandi Prices
+// 100+ Products Database with Base Mandi Prices
 const PRODUCT_MASTER = [
   // --- VEGETABLES (35) ---
   { name: "Tomato", category: "vegetables", base: 32, unit: "kg" },
@@ -113,7 +113,7 @@ const PRODUCT_MASTER = [
   { name: "Fenugreek (Methi Seeds)", category: "spices", base: 110, unit: "kg" },
 ];
 
-// ✨ Function to simulate hourly price change
+// Function to simulate hourly price change
 const getDynamicPrice = (base: number) => {
   const hour = new Date().getHours();
   // Deterministic fluctuation based on current hour (+/- 8%)

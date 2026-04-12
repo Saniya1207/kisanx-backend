@@ -67,7 +67,7 @@ router.post("/", protect, farmerOnly, async (req, res) => {
   }
 });
 
-// ✨ UPDATED: Product delete logic
+//  UPDATED: Product delete logic
 router.delete("/:id", protect, farmerOnly, async (req, res) => {
   try {
     const productId = req.params.id;

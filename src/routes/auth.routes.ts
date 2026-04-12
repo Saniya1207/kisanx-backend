@@ -6,7 +6,7 @@ import Product from "../models/Product";
 import { protect } from "../middleware/auth.middleware";
 import bcrypt from "bcryptjs";
 
-// ✅ Brevo (sib-api-v3-sdk) import
+// Brevo (sib-api-v3-sdk) import
 const SibApiV3Sdk = require('sib-api-v3-sdk');
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
 const apiKeyAuth = defaultClient.authentications['api-key'];
@@ -18,7 +18,7 @@ const router = Router();
 // Temporary storage for registration OTPs
 const otpStore: { [key: string]: { otp: string, expires: number } } = {};
 
-// 📧 Helper: Send Mail using Brevo
+// Helper: Send Mail using Brevo
 const sendEmailOTP = async (email: string, otp: string, subject: string) => {
   const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
 
@@ -106,7 +106,7 @@ const sendEmailOTP = async (email: string, otp: string, subject: string) => {
   }
 };
 
-// 1️⃣ ROUTE: SEND OTP
+// 1 ROUTE: SEND OTP
 router.post("/send-registration-otp", async (req: Request, res: Response) => {
   const { email } = req.body;
   if (!email) return res.status(400).json({ message: "Email is required" });
@@ -125,7 +125,7 @@ router.post("/send-registration-otp", async (req: Request, res: Response) => {
   }
 });
 
-// 2️⃣ ROUTE: VERIFY OTP
+// 2 ROUTE: VERIFY OTP
 router.post("/verify-registration-otp", async (req: Request, res: Response) => {
   const { email, otp } = req.body;
   const record = otpStore[email.toLowerCase()];
@@ -138,12 +138,12 @@ router.post("/verify-registration-otp", async (req: Request, res: Response) => {
   }
 });
 
-// 3️⃣ ROUTE: REGISTER ✅ FIXED
+// 3 ROUTE: REGISTER ✅ FIXED
 router.post("/register", async (req: Request, res: Response) => {
   try {
     const { firstName, lastName, email, password, phone, role, address, farmName, location, isVerified } = req.body;
 
-    // ✅ FIX 1: Required fields check
+    // Required fields check
     if (!firstName || !lastName || !email || !password) {
       return res.status(400).json({ message: "firstName, lastName, email aur password zaroori hain" });
     }
@@ -152,19 +152,18 @@ router.post("/register", async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Please verify your email first" });
     }
 
-    // ✅ FIX 2: Duplicate user check
+    // Duplicate user check
     const userExists = await User.findOne({ email: email.toLowerCase() });
     if (userExists) {
       return res.status(400).json({ message: "Yeh email already registered hai" });
     }
 
-    // ✅ FIX 3: Plain password bhejo — User model ka pre-save hook khud hash karega
-    // (Pehle manual bcrypt.hash yahan bhi tha, jo double-hash ka risk tha)
+    //  Plain password bhejo — User model ka pre-save hook khud hash karega
     const user = await User.create({
       firstName,
       lastName,
       email: email.toLowerCase(),
-      password,   // ✅ Plain password — pre-save hook hash karega
+      password,   //Plain password — pre-save hook hash karega
       phone,
       role,
       address,
@@ -184,7 +183,7 @@ router.post("/register", async (req: Request, res: Response) => {
     });
 
   } catch (error: any) {
-    // ✅ FIX 4: Mongoose validation errors clearly dikhao
+    // Mongoose validation errors 
     console.error("❌ Register Error:", error);
 
     if (error.name === "ValidationError") {
@@ -207,7 +206,7 @@ router.post("/login", async (req: Request, res: Response) => {
     const user = await User.findOne({ email }).select("+password");
     if (user && (await bcrypt.compare(password, user.password))) {
       
-      // ✅ pushToken save karo agar mila toh
+      // pushToken save karo agar mila toh
       if (pushToken) {
         await User.findByIdAndUpdate(user._id, { pushToken });
       }

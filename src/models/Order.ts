@@ -5,13 +5,12 @@ export interface IOrder extends Document {
   items: {
     productId: mongoose.Types.ObjectId;
     quantity: number;
-    weight: string; // ✨ Added for accurate stock & notification tracking
+    weight: string; 
   }[];
   totalAmount: number;
   shippingAddress: string;
   paymentMethod: "Online" | "COD";
   paymentStatus: "Pending" | "Paid" | "Completed" | "Failed";
-  // ✨ Interface mein "Cancelled" already added
   orderStatus: "Pending" | "Placed" | "Dispatched" | "In-Transit" | "Delivered" | "Cancelled";
   trackingId: string;
   estimatedDelivery: Date;
@@ -25,7 +24,7 @@ const OrderSchema = new Schema<IOrder>(
       {
         productId: { type: Schema.Types.ObjectId, ref: "Product", required: true },
         quantity: { type: Number, required: true },
-        weight: { type: String, default: "1kg" }, // ✨ Schema mein store karna zaroori hai
+        weight: { type: String, default: "1kg" }, 
       },
     ],
     totalAmount: { type: Number, required: true },
@@ -36,7 +35,7 @@ const OrderSchema = new Schema<IOrder>(
       enum: ["Pending", "Paid", "Completed", "Failed"],
       default: "Pending",
     },
-    // ✨ Status Enum as it is
+    // Status Enum
     orderStatus: {
       type: String,
       enum: ["Pending", "Placed", "Dispatched", "In-Transit", "Delivered", "Cancelled"],

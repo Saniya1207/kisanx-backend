@@ -18,14 +18,14 @@ connectDB();
 
 const app = express();
 
-// ✨ 1. Sabse pehle CORS
+// 1. Sabse pehle CORS
 app.use(cors());
 
-// ✨ 2. Body Limits
+// 2. Body Limits
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-// ✨ 3. Routes
+// 3. Routes
 app.use("/auth", authRoutes);
 app.use("/test", testRoutes);
 app.use("/products", productRoutes);
